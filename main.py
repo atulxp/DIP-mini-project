@@ -37,6 +37,15 @@ from src.enhancement import (
     plot_equalization_comparison,
     save_original_processed_comparison,
 )
+from src.filtering import (
+    add_gaussian_noise,
+    choose_best_filter_for_report,
+    compare_filters_on_dataset,
+    create_pipeline_comparison,
+    generate_noise_examples,
+    save_sharpening_comparison,
+    save_smoothing_comparison,
+)
 
 
 def print_header(title):
@@ -187,6 +196,73 @@ def run_enhancement_flow():
         print("Invalid choice.")
 
 
+def run_filtering_flow():
+    print_header("Week 5 - Noise, Smoothing, Sharpening and Filtering Comparison")
+    dataset_images = list_dataset_images()
+    if not dataset_images:
+        sample = create_placeholder_sample()
+        dataset_images = [sample]
+
+    print("1. Generate noise samples")
+    print("2. Apply smoothing filters")
+    print("3. Apply sharpening filters")
+    print("4. Compare filters across selected images")
+    print("5. Show best filter summary")
+    print("6. Build enhancement + filtering integration figure")
+    print("7. Return to main menu")
+
+    choice = input("Enter your choice: ").strip()
+
+    if choice == "1":
+        selected_images = dataset_images[: min(3, len(dataset_images))]
+        created = generate_noise_examples(selected_images)
+        if created:
+            print(f"Noise examples created under outputs/filtering/noise for {len(created)} images.")
+        else:
+            print("No valid images were available to create noise examples.")
+
+    elif choice == "2":
+        image = load_selected_image()
+        if image is None:
+            return
+        noisy = add_gaussian_noise(image, sigma=25)
+        output_path = OUTPUT_DIR / "filtering" / "smoothing" / "gaussian_smoothing_comparison.png"
+        save_smoothing_comparison(image, noisy, output_path)
+        print(f"Saved smoothing comparison to: {output_path}")
+
+    elif choice == "3":
+        image = load_selected_image()
+        if image is None:
+            return
+        output_path = OUTPUT_DIR / "filtering" / "sharpening" / "sharpening_comparison.png"
+        save_sharpening_comparison(image, output_path)
+        print(f"Saved sharpening comparison to: {output_path}")
+
+    elif choice == "4":
+        selected = dataset_images[: min(3, len(dataset_images))]
+        summary = compare_filters_on_dataset(selected)
+        print("Filtering comparison completed.")
+        for line in summary:
+            print(line)
+
+    elif choice == "5":
+        selected = dataset_images[: min(3, len(dataset_images))]
+        best_filters = choose_best_filter_for_report(selected)
+        print(best_filters)
+
+    elif choice == "6":
+        selected = dataset_images[0]
+        pipeline_path = create_pipeline_comparison(str(selected))
+        if pipeline_path:
+            print(f"Saved enhancement + filtering pipeline: {pipeline_path}")
+
+    elif choice == "7":
+        return
+
+    else:
+        print("Invalid choice.")
+
+
 def demo_mode():
     print_header("Project Demo Mode")
     dataset_images = list_dataset_images()
@@ -251,7 +327,8 @@ def main():
         print("8. Histogram equalization")
         print("9. Image arithmetic")
         print("10. Compare enhancement techniques")
-        print("11. Exit")
+        print("11. Noise, smoothing and filtering")
+        print("12. Exit")
 
         choice = input("Select an option: ").strip()
 
@@ -304,6 +381,8 @@ def main():
                     images.append(create_placeholder_sample())
             plot_enhancement_comparison(images[:3])
         elif choice == "11":
+            run_filtering_flow()
+        elif choice == "12":
             print("Exiting the project.")
             break
         else:

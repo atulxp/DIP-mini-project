@@ -1,0 +1,6 @@
+traffic_sign_001.jpg | salt_pepper | best filter: Median 3x3 | PSNR: 40.50 dB
+traffic_sign_001.jpg | gaussian | best filter: Gaussian 5x5 | PSNR: 31.65 dB
+traffic_sign_002.jpg | salt_pepper | best filter: Median 3x3 | PSNR: 39.12 dB
+traffic_sign_002.jpg | gaussian | best filter: Gaussian 5x5 | PSNR: 30.57 dB
+traffic_sign_003.jpg | salt_pepper | best filter: Median 3x3 | PSNR: 38.19 dB
+traffic_sign_003.jpg | gaussian | best filter: Gaussian 5x5 | PSNR: 31.46 dB

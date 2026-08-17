@@ -20,6 +20,7 @@ def ensure_output_folders():
         OUTPUT_DIR / "quantization",
         OUTPUT_DIR / "formats",
         OUTPUT_DIR / "enhancement",
+        OUTPUT_DIR / "filtering",
     ]
     for folder in folders:
         folder.mkdir(parents=True, exist_ok=True)
