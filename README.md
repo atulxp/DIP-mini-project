@@ -34,13 +34,13 @@ The current implementation includes only the following required work:
 
 ## Dataset location
 
-Place your traffic-sign images inside the dataset directory:
+The current project uses the real traffic-sign dataset stored in:
 
 - dataset/traffic_signs/
 
-The project accepts any image file in common formats such as JPG, PNG, BMP, and TIFF. The code does not assume a fixed class name or filename convention.
+This directory is intended to contain the selected traffic-sign images used for the current DIP project. The application accepts any valid image file in common formats such as JPG, PNG, BMP, and TIFF, and it does not rely on a fixed class-folder or filename structure.
 
-If the dataset folder is empty, the project can still run using a generated placeholder sample so that the required functions can be tested and demonstrated.
+The legacy placeholder/test sample is ignored during dataset discovery so the actual traffic-sign set is used by default.
 
 ## Installation
 

@@ -1,0 +1,81 @@
+filename,original_split,class_id,class_name
+traffic_sign_001.jpg,test,25,no parking
+traffic_sign_002.jpg,test,25,no parking
+traffic_sign_003.jpg,test,25,no parking
+traffic_sign_004.jpg,test,25,no parking
+traffic_sign_005.jpg,test,25,no parking
+traffic_sign_006.jpg,test,25,no parking
+traffic_sign_007.jpg,test,25,no parking
+traffic_sign_008.jpg,test,25,no parking
+traffic_sign_009.jpg,test,25,no parking
+traffic_sign_010.jpg,test,25,no parking
+traffic_sign_011.jpg,test,48,stop
+traffic_sign_012.jpg,test,48,stop
+traffic_sign_013.jpg,test,48,stop
+traffic_sign_014.jpg,test,48,stop
+traffic_sign_015.jpg,test,48,stop
+traffic_sign_016.jpg,test,48,stop
+traffic_sign_017.jpg,test,48,stop
+traffic_sign_018.jpg,test,48,stop
+traffic_sign_019.jpg,test,48,stop
+traffic_sign_020.jpg,test,48,stop
+traffic_sign_021.jpg,test,11,give way
+traffic_sign_022.jpg,test,11,give way
+traffic_sign_023.jpg,test,11,give way
+traffic_sign_024.jpg,test,11,give way
+traffic_sign_025.jpg,test,11,give way
+traffic_sign_026.jpg,test,11,give way
+traffic_sign_027.jpg,test,11,give way
+traffic_sign_028.jpg,test,11,give way
+traffic_sign_029.jpg,test,11,give way
+traffic_sign_030.jpg,test,11,give way
+traffic_sign_031.jpg,test,29,pedestrian crossing
+traffic_sign_032.jpg,test,29,pedestrian crossing
+traffic_sign_033.jpg,test,29,pedestrian crossing
+traffic_sign_034.jpg,test,29,pedestrian crossing
+traffic_sign_035.jpg,test,29,pedestrian crossing
+traffic_sign_036.jpg,test,29,pedestrian crossing
+traffic_sign_037.jpg,test,29,pedestrian crossing
+traffic_sign_038.jpg,test,29,pedestrian crossing
+traffic_sign_039.jpg,test,29,pedestrian crossing
+traffic_sign_040.jpg,test,29,pedestrian crossing
+traffic_sign_041.jpg,test,24,no entry
+traffic_sign_042.jpg,test,24,no entry
+traffic_sign_043.jpg,test,24,no entry
+traffic_sign_044.jpg,test,24,no entry
+traffic_sign_045.jpg,test,24,no entry
+traffic_sign_046.jpg,test,24,no entry
+traffic_sign_047.jpg,test,24,no entry
+traffic_sign_048.jpg,test,24,no entry
+traffic_sign_049.jpg,test,24,no entry
+traffic_sign_050.jpg,test,24,no entry
+traffic_sign_051.jpg,test,38,school ahead
+traffic_sign_052.jpg,test,38,school ahead
+traffic_sign_053.jpg,test,38,school ahead
+traffic_sign_054.jpg,test,38,school ahead
+traffic_sign_055.jpg,test,38,school ahead
+traffic_sign_056.jpg,test,38,school ahead
+traffic_sign_057.jpg,test,38,school ahead
+traffic_sign_058.jpg,test,38,school ahead
+traffic_sign_059.jpg,test,38,school ahead
+traffic_sign_060.jpg,test,38,school ahead
+traffic_sign_061.jpg,test,43,speed limit 30
+traffic_sign_062.jpg,test,43,speed limit 30
+traffic_sign_063.jpg,test,43,speed limit 30
+traffic_sign_064.jpg,test,43,speed limit 30
+traffic_sign_065.jpg,test,43,speed limit 30
+traffic_sign_066.jpg,test,43,speed limit 30
+traffic_sign_067.jpg,test,43,speed limit 30
+traffic_sign_068.jpg,test,43,speed limit 30
+traffic_sign_069.jpg,test,43,speed limit 30
+traffic_sign_070.jpg,test,43,speed limit 30
+traffic_sign_071.jpg,test,17,left hand curve
+traffic_sign_072.jpg,test,17,left hand curve
+traffic_sign_073.jpg,test,17,left hand curve
+traffic_sign_074.jpg,test,17,left hand curve
+traffic_sign_075.jpg,test,17,left hand curve
+traffic_sign_076.jpg,test,17,left hand curve
+traffic_sign_077.jpg,test,17,left hand curve
+traffic_sign_078.jpg,test,17,left hand curve
+traffic_sign_079.jpg,test,17,left hand curve
+traffic_sign_080.jpg,train,17,left hand curve

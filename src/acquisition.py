@@ -29,10 +29,16 @@ def list_dataset_images(dataset_dir=DATASET_DIR):
     if not dataset_dir.exists():
         return []
     valid_extensions = {".bmp", ".png", ".jpg", ".jpeg", ".tif", ".tiff"}
-    return sorted(
-        [path for path in dataset_dir.iterdir() if path.is_file() and path.suffix.lower() in valid_extensions],
-        key=lambda p: p.name.lower(),
-    )
+    images = []
+    for path in dataset_dir.iterdir():
+        if not path.is_file():
+            continue
+        if path.suffix.lower() not in valid_extensions:
+            continue
+        if path.name.lower().startswith("sample_") or path.name.lower().startswith("placeholder_"):
+            continue
+        images.append(path)
+    return sorted(images, key=lambda p: p.name.lower())
 
 
 def create_placeholder_sample(output_path=None):

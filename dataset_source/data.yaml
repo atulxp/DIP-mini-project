@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 56
+names: ['all motor vehicle prohibited', 'axle load limit', 'compulsary ahead', 'compulsary keep left', 'compulsary keep right', 'compulsary turn left ahead', 'compulsary turn right ahead', 'cross road', 'dangerous dip', 'falling rocks', 'gap in median', 'give way', 'guarded level crossing', 'height limit', 'horn prohibited', 'hospital ahead', 'hump or rough road', 'left hand curve', 'left reverse bend', 'left turn prohibited', 'loose gravel', 'men at work', 'narrow bridge ahead', 'narrow road ahead', 'no entry', 'no parking', 'no stopping or standing', 'overtaking prohibited', 'pass either side', 'pedestrian crossing', 'petrol pump ahead', 'quay side or river bank', 'restriction ends', 'right hand curve', 'right reverse bend', 'right turn prohibited', 'road widens ahead', 'roundabout', 'school ahead', 'side road left', 'side road right', 'slippery road', 'speed limit 100', 'speed limit 30', 'speed limit 50', 'staggered intersection', 'steep ascent', 'steep descent', 'stop', 'straight prohibited', 't intersection', 'u turn', 'u turn prohibited', 'unguarded level crossing', 'width limit', 'y intersection']
+
+roboflow:
+  workspace: major-project-vu7ji
+  project: indian-traffic-signboards-zcmku
+  version: 5
+  license: MIT
+  url: https://universe.roboflow.com/major-project-vu7ji/indian-traffic-signboards-zcmku/dataset/5

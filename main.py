@@ -182,8 +182,13 @@ def run_enhancement_flow():
 
 def demo_mode():
     print_header("Project Demo Mode")
-    image = create_placeholder_sample()
-    loaded_image = load_image(str(image))
+    dataset_images = list_dataset_images()
+    if dataset_images:
+        loaded_image = load_image(str(dataset_images[0]))
+    else:
+        image = create_placeholder_sample()
+        loaded_image = load_image(str(image))
+
     if loaded_image is None:
         print("Could not load the demo image.")
         return
