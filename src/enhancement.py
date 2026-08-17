@@ -42,6 +42,67 @@ def generate_histogram(image, title="Histogram", output_path=None):
     return hist
 
 
+def save_original_processed_comparison(original, processed, original_title, processed_title, output_path):
+    if original is None or processed is None:
+        return
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    original_array = original
+    processed_array = processed
+
+    if len(original_array.shape) == 3:
+        original_array = cv2.cvtColor(original_array, cv2.COLOR_BGR2RGB)
+    if len(processed_array.shape) == 3:
+        processed_array = cv2.cvtColor(processed_array, cv2.COLOR_BGR2RGB)
+
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    axes[0].imshow(original_array if len(original_array.shape) == 3 else original_array, cmap="gray" if len(original_array.shape) == 2 else None)
+    axes[0].set_title(original_title)
+    axes[0].axis("off")
+
+    axes[1].imshow(processed_array if len(processed_array.shape) == 3 else processed_array, cmap="gray" if len(processed_array.shape) == 2 else None)
+    axes[1].set_title(processed_title)
+    axes[1].axis("off")
+
+    fig.tight_layout()
+    fig.savefig(output_path)
+    plt.close(fig)
+
+
+def plot_equalization_comparison(image, output_path):
+    gray = ensure_grayscale(image)
+    if gray is None:
+        return
+    equalized = cv2.equalizeHist(gray)
+    hist_original = cv2.calcHist([gray], [0], None, [256], [0, 256])
+    hist_equalized = cv2.calcHist([equalized], [0], None, [256], [0, 256])
+
+    fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+    axes[0, 0].imshow(gray, cmap="gray")
+    axes[0, 0].set_title("Original Image")
+    axes[0, 0].axis("off")
+
+    axes[0, 1].plot(hist_original, color="black")
+    axes[0, 1].set_title("Original Histogram")
+    axes[0, 1].set_xlim([0, 255])
+    axes[0, 1].set_xlabel("Intensity")
+    axes[0, 1].set_ylabel("Count")
+
+    axes[1, 0].imshow(equalized, cmap="gray")
+    axes[1, 0].set_title("Equalized Image")
+    axes[1, 0].axis("off")
+
+    axes[1, 1].plot(hist_equalized, color="black")
+    axes[1, 1].set_title("Equalized Histogram")
+    axes[1, 1].set_xlim([0, 255])
+    axes[1, 1].set_xlabel("Intensity")
+    axes[1, 1].set_ylabel("Count")
+
+    fig.tight_layout()
+    fig.savefig(output_path)
+    plt.close(fig)
+
+
 def apply_image_negative(image):
     gray = ensure_grayscale(image)
     if gray is None:
@@ -53,17 +114,21 @@ def apply_log_transformation(image, c=1.0):
     gray = ensure_grayscale(image)
     if gray is None:
         return None
-    log_image = c * np.log1p(gray.astype(np.float32))
-    log_image = np.uint8(np.clip(log_image, 0, 255))
-    return log_image
+    gray_float = gray.astype(np.float32)
+    log_image = c * np.log1p(gray_float)
+    log_image = (log_image / np.log1p(255.0)) * 255.0
+    log_image = np.clip(log_image, 0, 255)
+    return np.uint8(log_image)
 
 
 def apply_gamma_transformation(image, gamma=0.5):
     gray = ensure_grayscale(image)
     if gray is None:
         return None
-    gamma_image = np.power(gray.astype(np.float32) / 255.0, gamma) * 255.0
-    return np.uint8(np.clip(gamma_image, 0, 255))
+    gray_float = gray.astype(np.float32) / 255.0
+    gamma_image = np.power(gray_float, gamma) * 255.0
+    gamma_image = np.clip(gamma_image, 0, 255)
+    return np.uint8(gamma_image)
 
 
 def apply_contrast_stretching(image, low_in=0, high_in=255):
@@ -132,7 +197,7 @@ def plot_enhancement_comparison(image_paths):
         axes[row_index, 0].set_title("Original")
         axes[row_index, 0].axis("off")
 
-        for col_index, (name, func) in enumerate(techniques.items(), start=1):
+        for col_index, (name, func) in enumerate(list(techniques.items())[1:], start=1):
             processed = func(gray)
             axes[row_index, col_index].imshow(processed, cmap="gray")
             axes[row_index, col_index].set_title(name)

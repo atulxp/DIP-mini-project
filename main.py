@@ -34,6 +34,8 @@ from src.enhancement import (
     image_averaging,
     image_subtraction,
     plot_enhancement_comparison,
+    plot_equalization_comparison,
+    save_original_processed_comparison,
 )
 
 
@@ -110,6 +112,7 @@ def run_enhancement_flow():
 
     if choice == "1":
         enhanced = apply_image_negative(gray)
+        save_original_processed_comparison(gray, enhanced, "Original Image", "Negative Image", OUTPUT_DIR / "enhancement" / "negative_comparison.png")
         generate_histogram(gray, "Original Histogram", OUTPUT_DIR / "enhancement" / "hist_original_negative.png")
         generate_histogram(enhanced, "Negative Histogram", OUTPUT_DIR / "enhancement" / "hist_negative.png")
         display_image(gray, "Original Gray Image")
@@ -119,6 +122,7 @@ def run_enhancement_flow():
     elif choice == "2":
         c = float(input("Enter log constant (default 1.0): ") or "1.0")
         enhanced = apply_log_transformation(gray, c=c)
+        save_original_processed_comparison(gray, enhanced, "Original Image", "Log-Transformed Image", OUTPUT_DIR / "enhancement" / "log_comparison.png")
         display_image(gray, "Original Gray Image")
         display_image(enhanced, "Log Transformation")
         save_image(enhanced, OUTPUT_DIR / "enhancement" / "log_transformation.png", "Log Transformation")
@@ -128,6 +132,7 @@ def run_enhancement_flow():
     elif choice == "3":
         gamma = float(input("Enter gamma value (default 0.5): ") or "0.5")
         enhanced = apply_gamma_transformation(gray, gamma=gamma)
+        save_original_processed_comparison(gray, enhanced, "Original Image", f"Gamma-Transformed Image (gamma={gamma})", OUTPUT_DIR / "enhancement" / "gamma_comparison.png")
         display_image(gray, "Original Gray Image")
         display_image(enhanced, f"Gamma Transformation (gamma={gamma})")
         save_image(enhanced, OUTPUT_DIR / "enhancement" / f"gamma_{gamma}.png", f"Gamma Transformation (gamma={gamma})")
@@ -138,12 +143,14 @@ def run_enhancement_flow():
         low_in = int(input("Enter lower input bound (0-255, default 0): ") or "0")
         high_in = int(input("Enter upper input bound (0-255, default 255): ") or "255")
         enhanced = apply_contrast_stretching(gray, low_in=low_in, high_in=high_in)
+        save_original_processed_comparison(gray, enhanced, "Original Image", "Contrast-Stretched Image", OUTPUT_DIR / "enhancement" / "contrast_comparison.png")
         display_image(gray, "Original Gray Image")
         display_image(enhanced, "Contrast Stretching")
         save_image(enhanced, OUTPUT_DIR / "enhancement" / "contrast_stretching.png", "Contrast Stretching")
 
     elif choice == "5":
         eq = equalize_histogram(gray)
+        plot_equalization_comparison(gray, OUTPUT_DIR / "enhancement" / "histogram_equalization_comparison.png")
         generate_histogram(gray, "Original Histogram", OUTPUT_DIR / "enhancement" / "hist_original_equalized.png")
         generate_histogram(eq, "Equalized Histogram", OUTPUT_DIR / "enhancement" / "hist_equalized.png")
         display_image(gray, "Original Gray Image")
@@ -208,10 +215,16 @@ def demo_mode():
     enhanced_gamma = apply_gamma_transformation(gray, gamma=0.5)
     enhanced_contrast = apply_contrast_stretching(gray, 20, 220)
 
+    save_original_processed_comparison(gray, enhanced_negative, "Original Image", "Negative Image", OUTPUT_DIR / "enhancement" / "negative_comparison.png")
+    save_original_processed_comparison(gray, enhanced_log, "Original Image", "Log-Transformed Image", OUTPUT_DIR / "enhancement" / "log_comparison.png")
+    save_original_processed_comparison(gray, enhanced_gamma, "Original Image", "Gamma-Transformed Image", OUTPUT_DIR / "enhancement" / "gamma_comparison.png")
+    save_original_processed_comparison(gray, enhanced_contrast, "Original Image", "Contrast-Stretched Image", OUTPUT_DIR / "enhancement" / "contrast_comparison.png")
+
     save_image(enhanced_negative, OUTPUT_DIR / "enhancement" / "demo_negative.png", "Demo Negative")
     save_image(enhanced_log, OUTPUT_DIR / "enhancement" / "demo_log.png", "Demo Log")
     save_image(enhanced_gamma, OUTPUT_DIR / "enhancement" / "demo_gamma.png", "Demo Gamma")
     save_image(enhanced_contrast, OUTPUT_DIR / "enhancement" / "demo_contrast.png", "Demo Contrast")
+    plot_equalization_comparison(gray, OUTPUT_DIR / "enhancement" / "histogram_equalization_comparison.png")
 
     print("Demo completed successfully. Results were saved under outputs/.")
 
