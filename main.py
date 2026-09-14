@@ -46,6 +46,18 @@ from src.filtering import (
     save_sharpening_comparison,
     save_smoothing_comparison,
 )
+from src.segmentation import (
+    adaptive_threshold,
+    global_threshold,
+    laplacian_operator,
+    otsu_threshold,
+    prewitt_operator,
+    roberts_operator,
+    run_region_growing_experiments,
+    run_split_merge,
+    run_task5_experiments,
+    sobel_operator,
+)
 
 
 def print_header(title):
@@ -263,6 +275,104 @@ def run_filtering_flow():
         print("Invalid choice.")
 
 
+def _selected_task_image():
+    dataset_images = list_dataset_images()
+    if not dataset_images:
+        print("No dataset image is available.")
+        return None, None
+    print("Available images in dataset/traffic_signs:")
+    for index, path in enumerate(dataset_images, start=1):
+        print(f"  {index}. {path.name}")
+    choice = input("Select image number (press Enter for first image): ").strip()
+    try:
+        image_path = dataset_images[int(choice) - 1] if choice else dataset_images[0]
+    except (ValueError, IndexError):
+        print("Invalid choice. Loading the first image instead.")
+        image_path = dataset_images[0]
+    image = load_image(str(image_path))
+    if image is None:
+        print("No usable traffic-sign image was selected.")
+    return image_path, image
+
+
+def run_segmentation_flow():
+    print_header("Task 5 - Edge Detection and Thresholding")
+    print("The segmentation input reuses Task 4's Median 3x3 filtered output.")
+    print("1. Run all Task 5 experiments on three dataset images")
+    print("2. Run one interactive method")
+    print("3. Return to main menu")
+    choice = input("Enter your choice: ").strip()
+    if choice == "1":
+        result = run_task5_experiments()
+        print(f"Best Segmentation Method: {result['best_method']}")
+        print(f"Evidence: {result['report']}")
+        print(f"Metrics: {result['csv']}")
+    elif choice == "2":
+        _, image = _selected_task_image()
+        if image is None:
+            return
+        from src.segmentation import segmentation_input, to_gray
+        gray = to_gray(segmentation_input(image))
+        print("1. Roberts  2. Prewitt  3. Sobel  4. Laplacian  5. Global  6. Otsu  7. Adaptive")
+        method = input("Select method: ").strip()
+        if method == "1":
+            result, label = roberts_operator(gray), "Roberts"
+        elif method == "2":
+            result, label = prewitt_operator(gray), "Prewitt"
+        elif method == "3":
+            result, label = sobel_operator(gray), "Sobel"
+        elif method == "4":
+            result, label = laplacian_operator(gray), "Laplacian"
+        elif method == "5":
+            value = int(input("Global threshold [0-255, default 128]: ") or "128")
+            result, label = global_threshold(gray, value), f"Global threshold ({value})"
+        elif method == "6":
+            value, result = otsu_threshold(gray)
+            label = f"Otsu ({value})"
+        elif method == "7":
+            block = int(input("Adaptive block size [default 31]: ") or "31")
+            constant = int(input("Adaptive constant [default 5]: ") or "5")
+            result, label = adaptive_threshold(gray, block, constant), f"Adaptive (block={block}, C={constant})"
+        else:
+            print("Invalid method.")
+            return
+        output_path = OUTPUT_DIR / "segmentation" / f"interactive_{label.lower().replace(' ', '_')}.png"
+        save_image(result, output_path, label)
+        print(f"Saved {label} result to: {output_path}")
+    elif choice != "3":
+        print("Invalid choice.")
+
+
+def run_region_growing_flow():
+    print_header("Task 6 - Region Growing")
+    print("Runs low, medium, and high thresholds for both 4- and 8-connected neighbourhoods.")
+    image_path, image = _selected_task_image()
+    if image is None:
+        return
+    result = run_region_growing_experiments(image_path=image_path)
+    print(f"Seed: {result['seed']}")
+    print(f"Best measured configuration: {result['best']}")
+    print(f"Evidence: {result['figure']}")
+    print(f"Metrics: {result['csv']}")
+    print(f"Report: {result['summary']}")
+
+
+def run_split_merge_flow():
+    print_header("Task 7 - Region Splitting and Merging")
+    image_path, image = _selected_task_image()
+    if image is None:
+        return
+    homogeneity = int(input("Homogeneity standard-deviation threshold [default 12]: ") or "12")
+    minimum = int(input("Minimum region size [default 16]: ") or "16")
+    similarity = int(input("Merging mean-intensity threshold [default 12]: ") or "12")
+    result = run_split_merge(image_path, homogeneity, minimum, similarity)
+    print(f"Regions after splitting: {len(result['split'])}")
+    print(f"Regions after merging: {len(result['merged'])}")
+    print(f"Split evidence: {result['split_path']}")
+    print(f"Merged evidence: {result['merged_path']}")
+    print(f"Report: {result['report']}")
+
+
 def demo_mode():
     print_header("Project Demo Mode")
     dataset_images = list_dataset_images()
@@ -328,7 +438,10 @@ def main():
         print("9. Image arithmetic")
         print("10. Compare enhancement techniques")
         print("11. Noise, smoothing and filtering")
-        print("12. Exit")
+        print("12. Task 5 - Segmentation")
+        print("13. Task 6 - Region growing")
+        print("14. Task 7 - Region splitting and merging")
+        print("15. Exit")
 
         choice = input("Select an option: ").strip()
 
@@ -383,6 +496,12 @@ def main():
         elif choice == "11":
             run_filtering_flow()
         elif choice == "12":
+            run_segmentation_flow()
+        elif choice == "13":
+            run_region_growing_flow()
+        elif choice == "14":
+            run_split_merge_flow()
+        elif choice == "15":
             print("Exiting the project.")
             break
         else:

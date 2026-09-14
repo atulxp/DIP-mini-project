@@ -1,0 +1,7 @@
+image,seed_x,seed_y,connectivity,threshold,pixels,processing_ms,final_mean
+traffic_sign_001.jpg,320,320,4,10,4277,3.183,211.85
+traffic_sign_001.jpg,320,320,4,25,31570,19.080,209.91
+traffic_sign_001.jpg,320,320,4,45,44498,27.349,198.50
+traffic_sign_001.jpg,320,320,8,10,4232,4.067,212.15
+traffic_sign_001.jpg,320,320,8,25,31556,26.861,209.92
+traffic_sign_001.jpg,320,320,8,45,44398,38.699,198.61

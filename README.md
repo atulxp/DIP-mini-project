@@ -1,6 +1,6 @@
 # Traffic Sign Detection Using Digital Image Processing Techniques
 
-This project is a semester-long Digital Image Processing mini project focused on the initial stages of traffic sign processing:
+This project is a semester-long Digital Image Processing mini project focused on a complete traffic-sign processing pipeline:
 
 - Image acquisition and fundamentals
 - Image representation
@@ -10,12 +10,15 @@ This project is a semester-long Digital Image Processing mini project focused on
 - Spatial-domain enhancement
 - Histogram analysis and equalization
 - Image arithmetic operations
+- Edge detection and threshold-based segmentation
+- Region growing with 4- and 8-connected neighbourhoods
+- Recursive region splitting and adjacent-region merging
 
 This is not yet the final traffic-sign recognition system. It is the required foundation for later DIP stages, which will be added incrementally over the semester.
 
 ## Current implemented modules
 
-The current implementation includes only the following required work:
+The current implementation includes the following required work:
 
 1. Image acquisition from a configurable dataset path
 2. Image representation and coordinate inspection
@@ -30,7 +33,12 @@ The current implementation includes only the following required work:
    - Contrast stretching
 8. Histogram generation and histogram equalization
 9. Image arithmetic: addition, subtraction, and averaging
-10. Simple menu-based execution for the required project workflow
+10. Noise, smoothing, sharpening, and filtering comparison
+11. Roberts, Prewitt, Sobel, and Laplacian edge detection
+12. Global, Otsu, and adaptive thresholding
+13. Region growing threshold and connectivity experiments
+14. Region splitting, merging, and integrated evidence reports
+15. Menu-based execution for the complete project workflow
 
 ## Dataset location
 
@@ -66,7 +74,7 @@ python main.py --demo
 
 ## Current functionality
 
-The menu includes only the required steps for the current semester scope:
+The menu includes the following workflow stages:
 
 - Image acquisition and image information
 - Color-space conversion
@@ -78,8 +86,15 @@ The menu includes only the required steps for the current semester scope:
 - Histogram equalization
 - Image arithmetic
 - Enhancement comparison
+- Task 5: segmentation experiments and comparison metrics
+- Task 6: region-growing experiments and connectivity comparison
+- Task 7: region splitting and merging with measured region counts
 
-Later DIP stages such as filtering, segmentation, and classification are intentionally not included in this version.
+Task 5 reuses the existing Task 4 Median 3x3 filtered output before grayscale conversion. The generated evidence is stored under `outputs/segmentation`, `outputs/region_growing`, and `outputs/region_splitting_merging`. CSV files contain measured values from the selected traffic-sign images; Markdown summaries explain the selection criteria without fabricating accuracy values.
+
+## Demonstration workflow
+
+Run `python main.py`, choose option 12, and run all Task 5 experiments. Then choose option 13 for Task 6 and option 14 for Task 7. Use the saved PNG figures and CSV/Markdown files in `outputs/` as report evidence. The current CLI uses an automatic centre seed for reproducibility; the modular `region_grow()` function also accepts any valid `(x, y)` seed for future mouse-based UI integration.
 
 ## Folder structure
 
