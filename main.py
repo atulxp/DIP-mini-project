@@ -58,6 +58,7 @@ from src.segmentation import (
     run_task5_experiments,
     sobel_operator,
 )
+from src.morphology import run_task8
 
 
 def print_header(title):
@@ -373,6 +374,45 @@ def run_split_merge_flow():
     print(f"Report: {result['report']}")
 
 
+def run_morphology_flow():
+    print_header("Task 8 - Binary Morphological Processing")
+    image_path, image = _selected_task_image()
+    if image is None:
+        return
+    print("The morphology input reuses Task 4's filtered image and creates a binary mask with a measured threshold.")
+    print("1. Otsu threshold  2. Global threshold  3. Adaptive threshold")
+    threshold_choice = input("Select binary conversion (default Otsu): ").strip() or "1"
+    if threshold_choice == "1":
+        threshold_method, threshold = "otsu", 128
+    elif threshold_choice == "2":
+        threshold_method = "global"
+        threshold = int(input("Global threshold [0-255, default 128]: ") or "128")
+    elif threshold_choice == "3":
+        threshold_method, threshold = "adaptive", 128
+    else:
+        print("Invalid binary conversion.")
+        return
+    print("Structuring element: 1. 3x3 square  2. 5x5 square  3. Cross  4. Disk")
+    element_choice = input("Select element for the highlighted result (default 3x3 square): ").strip() or "1"
+    elements = {"1": "3x3 square", "2": "5x5 square", "3": "cross", "4": "disk"}
+    if element_choice not in elements:
+        print("Invalid structuring element.")
+        return
+    print("Operation: 1. Erosion  2. Dilation  3. Opening  4. Closing")
+    operation_choice = input("Select operation (default Erosion): ").strip() or "1"
+    operations = {"1": "Erosion", "2": "Dilation", "3": "Opening", "4": "Closing"}
+    if operation_choice not in operations:
+        print("Invalid operation.")
+        return
+    result = run_task8(image_path, threshold_method, threshold, selected_element=elements[element_choice], selected_operation=operations[operation_choice])
+    foreground = int((result["binary"] > 0).sum())
+    print(f"Binary foreground/background: {foreground}/{result['binary'].size - foreground}")
+    print(f"Selected result: {elements[element_choice]} {operations[operation_choice]}")
+    print(f"Overview: {result['figure']}")
+    print(f"Metrics: {result['csv']}")
+    print(f"Report: {result['report']}")
+
+
 def demo_mode():
     print_header("Project Demo Mode")
     dataset_images = list_dataset_images()
@@ -441,7 +481,8 @@ def main():
         print("12. Task 5 - Segmentation")
         print("13. Task 6 - Region growing")
         print("14. Task 7 - Region splitting and merging")
-        print("15. Exit")
+        print("15. Task 8 - Binary morphological processing")
+        print("16. Exit")
 
         choice = input("Select an option: ").strip()
 
@@ -502,6 +543,8 @@ def main():
         elif choice == "14":
             run_split_merge_flow()
         elif choice == "15":
+            run_morphology_flow()
+        elif choice == "16":
             print("Exiting the project.")
             break
         else:

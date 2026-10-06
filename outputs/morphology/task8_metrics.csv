@@ -1,0 +1,9 @@
+image,dimensions,threshold,structuring_element,operation,foreground_before,foreground_after,pixel_change,processing_ms
+traffic_sign_001.jpg,640x640,Otsu (150),3x3 Square,Erosion,201512,191446,-10066,2.195
+traffic_sign_001.jpg,640x640,Otsu (150),3x3 Square,Dilation,201512,210307,8795,0.515
+traffic_sign_001.jpg,640x640,Otsu (150),5x5 Square,Erosion,201512,181833,-19679,1.044
+traffic_sign_001.jpg,640x640,Otsu (150),5x5 Square,Dilation,201512,218634,17122,0.987
+traffic_sign_001.jpg,640x640,Otsu (150),Cross,Erosion,201512,193616,-7896,0.331
+traffic_sign_001.jpg,640x640,Otsu (150),Cross,Dilation,201512,208162,6650,0.396
+traffic_sign_001.jpg,640x640,Otsu (150),Disk,Erosion,201512,186022,-15490,0.517
+traffic_sign_001.jpg,640x640,Otsu (150),Disk,Dilation,201512,214577,13065,0.505

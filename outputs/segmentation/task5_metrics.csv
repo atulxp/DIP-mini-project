@@ -6,17 +6,3 @@ traffic_sign_001.jpg,640x640,39,248,Roberts,,,,10053
 traffic_sign_001.jpg,640x640,39,248,Prewitt,,,,14838
 traffic_sign_001.jpg,640x640,39,248,Sobel,,,,14726
 traffic_sign_001.jpg,640x640,39,248,Laplacian,,,,6431
-traffic_sign_002.jpg,640x640,15,255,Global Threshold,128,0.5286,187,150727
-traffic_sign_002.jpg,640x640,15,255,Otsu,128,0.5286,187,150727
-traffic_sign_002.jpg,640x640,15,255,Adaptive Threshold,"block=31,C=5",0.7184,143,202022
-traffic_sign_002.jpg,640x640,15,255,Roberts,,,,22774
-traffic_sign_002.jpg,640x640,15,255,Prewitt,,,,27394
-traffic_sign_002.jpg,640x640,15,255,Sobel,,,,27590
-traffic_sign_002.jpg,640x640,15,255,Laplacian,,,,4837
-traffic_sign_003.jpg,640x640,22,254,Global Threshold,128,0.2564,212,32025
-traffic_sign_003.jpg,640x640,22,254,Otsu,116,0.3188,231,63636
-traffic_sign_003.jpg,640x640,22,254,Adaptive Threshold,"block=31,C=5",0.6655,198,245546
-traffic_sign_003.jpg,640x640,22,254,Roberts,,,,14377
-traffic_sign_003.jpg,640x640,22,254,Prewitt,,,,29801
-traffic_sign_003.jpg,640x640,22,254,Sobel,,,,29414
-traffic_sign_003.jpg,640x640,22,254,Laplacian,,,,6644

@@ -8,11 +8,6 @@ Criterion: a candidate pixel is accepted when its intensity differs from the cur
 ## Measured comparison
 | Connectivity | Threshold | Pixels | Processing time (ms) | Final mean |
 |---:|---:|---:|---:|---:|
-| 4 | 10 | 4277 | 3.183 | 211.85 |
-| 4 | 25 | 31570 | 19.080 | 209.91 |
-| 4 | 45 | 44498 | 27.349 | 198.50 |
-| 8 | 10 | 4232 | 4.067 | 212.15 |
-| 8 | 25 | 31556 | 26.861 | 209.92 |
-| 8 | 45 | 44398 | 38.699 | 198.61 |
+| 4 | 10 | 4277 | 2.749 | 211.85 |
 
-Best bounded configuration: **4-connected, threshold 25**. It is the largest measured region not exceeding 10% of the image area, a leakage guard for this traffic-sign experiment. The figure and CSV retain every threshold/connectivity result.
+Best bounded configuration: **4-connected, threshold 10**. It is the largest measured region not exceeding 10% of the image area, a leakage guard for this traffic-sign experiment. The figure and CSV retain every threshold/connectivity result.

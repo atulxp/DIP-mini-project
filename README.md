@@ -13,6 +13,7 @@ This project is a semester-long Digital Image Processing mini project focused on
 - Edge detection and threshold-based segmentation
 - Region growing with 4- and 8-connected neighbourhoods
 - Recursive region splitting and adjacent-region merging
+- Binary erosion, dilation, opening, closing, and structuring-element comparison
 
 This is not yet the final traffic-sign recognition system. It is the required foundation for later DIP stages, which will be added incrementally over the semester.
 
@@ -38,7 +39,8 @@ The current implementation includes the following required work:
 12. Global, Otsu, and adaptive thresholding
 13. Region growing threshold and connectivity experiments
 14. Region splitting, merging, and integrated evidence reports
-15. Menu-based execution for the complete project workflow
+15. Binary morphological processing from the existing segmentation input
+16. Menu-based execution for the complete project workflow
 
 ## Dataset location
 
@@ -89,12 +91,13 @@ The menu includes the following workflow stages:
 - Task 5: segmentation experiments and comparison metrics
 - Task 6: region-growing experiments and connectivity comparison
 - Task 7: region splitting and merging with measured region counts
+- Task 8: binary morphological processing from the Task 4-filtered segmentation input
 
-Task 5 reuses the existing Task 4 Median 3x3 filtered output before grayscale conversion. The generated evidence is stored under `outputs/segmentation`, `outputs/region_growing`, and `outputs/region_splitting_merging`. CSV files contain measured values from the selected traffic-sign images; Markdown summaries explain the selection criteria without fabricating accuracy values.
+Task 5 reuses the existing Task 4 Median 3x3 filtered output before grayscale conversion. Task 8 continues from that same filtered image, creates a measured Otsu/global/adaptive binary mask, and applies real neighbourhood-based morphology. The generated evidence is stored under `outputs/segmentation`, `outputs/region_growing`, `outputs/region_splitting_merging`, and `outputs/morphology`. CSV files contain measured values from the selected traffic-sign images; Markdown summaries explain the selection criteria without fabricating accuracy values.
 
 ## Demonstration workflow
 
-Run `python main.py`, choose option 12, and run all Task 5 experiments. Then choose option 13 for Task 6 and option 14 for Task 7. Use the saved PNG figures and CSV/Markdown files in `outputs/` as report evidence. The current CLI uses an automatic centre seed for reproducibility; the modular `region_grow()` function also accepts any valid `(x, y)` seed for future mouse-based UI integration.
+Run `python main.py`, choose option 12, and run all Task 5 experiments. Then choose option 13 for Task 6, option 14 for Task 7, and option 15 for Task 8. Select the same traffic-sign image, binary conversion, structuring element, and operation. Task 8 saves the binary input, every supported element's erosion/dilation outputs, opening/closing overview, measured CSV, and Markdown report under `outputs/morphology`.
 
 ## Folder structure
 
